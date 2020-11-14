@@ -13,14 +13,16 @@ let controls: OrbitControls;
 let lastUpdateTime = 0;
 
 const on: number[] = [];
-for (let i = 0; i < Values.size * Values.size; i++) {
-    if (Math.random() > 0.8) {
+const toMake = Values.threeD ? (Values.size * Values.size * Values.size) : (Values.size * Values.size)
+for (let i = 0; i < (toMake); i++) {
+    if (Math.random() > 0.2) {
         on.push(i);
-
     }
 }
 
-let cellmap : CellMap;
+console.log(on.length);
+
+let cellmap: CellMap;
 //Display FPS
 const stats = new Stats();
 stats.showPanel(0);
@@ -33,6 +35,8 @@ function init() {
     container = document.createElement('div');
 
     scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x050505);
+
     camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight);
     camera.position.setZ(Values.size);
     renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -69,7 +73,7 @@ function render() {
         controls.update();
     }
 
-    if(performance.now() - lastUpdateTime > Values.msBetweenUpdate){
+    if (performance.now() - lastUpdateTime > Values.msBetweenUpdate) {
         lastUpdateTime = performance.now();
         cellmap.stepForward();
         cellmap.drawMap();

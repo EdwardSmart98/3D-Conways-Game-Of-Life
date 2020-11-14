@@ -15,7 +15,9 @@ export class Cell{
         this.position = position;
     }
 
-    
+    public numberOfNeighbours() : number{
+        return this.neighbours.length;
+    }
 
     public addNeighbour(neighbour : Cell){
         this.neighbours.push(neighbour);
